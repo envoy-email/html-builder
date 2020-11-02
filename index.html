@@ -12,8 +12,12 @@
 	
 	
 	<script type="text/javascript">
-			
+		
+		var doc_load = 0, preview_load = 0;
+		
 		$(document).ready( function() {
+			
+			doc_load = 1;
 			
 			function load_preview(){
 				$.ajax({
@@ -124,9 +128,23 @@
         });
 		
 		$('#live-preview').ready( function() {
+			preview_load = 1;
 			setTimeout( function() { preview(); }, 200 );
 			$('.loading_bar').addClass('hide');
 		});
+		
+		var id = setInterval(load_preview, 10);
+		
+		function load_preview() {
+		
+			if ( doc_load == 1 && preview_load == 1 ) {
+				
+				preview();
+				clearInterval(id);
+			  
+			}
+			
+		}
 		
 		
     </script>
