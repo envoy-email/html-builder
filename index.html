@@ -12,7 +12,7 @@
 	
 	
 	<script type="text/javascript">
-        
+			
 		$(document).ready( function() {
 			
 			function load_preview(){
@@ -106,14 +106,6 @@
 				
 			}
 			
-			
-			
-			
-			$('#live-preview').ready( function() {
-				setTimeout( function() { preview(); }, 200 );
-				$('.loading_bar').addClass('hide');
-			});
-			
 			$('.form_input').on('keyup change paste', function(e){
 				
 				preview();
@@ -130,6 +122,11 @@
 			
 			
         });
+		
+		$('#live-preview').ready( function() {
+			setTimeout( function() { preview(); }, 200 );
+			$('.loading_bar').addClass('hide');
+		});
 		
 		
     </script>
