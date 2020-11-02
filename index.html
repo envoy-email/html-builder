@@ -17,7 +17,7 @@
 		
 		$(document).ready( function() {
 			
-			doc_load = 1;
+			
 			
 			function load_preview(){
 				$.ajax({
@@ -124,23 +124,24 @@
 				
 			});
 			
+			doc_load = 1;
 			
         });
 		
 		$('#live-preview').ready( function() {
-			preview_load = 1;
 			setTimeout( function() { preview(); }, 200 );
 			$('.loading_bar').addClass('hide');
+			preview_load = 1;
 		});
 		
-		var id = setInterval(load_preview, 10);
+		var intval = setInterval(load_preview, 10);
 		
 		function load_preview() {
 		
 			if ( doc_load == 1 && preview_load == 1 ) {
 				
 				preview();
-				clearInterval(id);
+				clearInterval( intval );
 			  
 			}
 			
