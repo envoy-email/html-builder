@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Envoy Email Builder</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="shortcut icon" type="image/x-icon" href="http://envoymails.com/images/logo_icon_new.png"/>
+	<!--<script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	
+	
+	<script type="text/javascript">
+        
+		$(document).ready( function() {
+			
+			function load_preview(){
+				$.ajax({
+					url: "template1.html",
+					cache: false,
+					success: function( data ){
+					
+						var live_preview = document.getElementById('live-preview' )||$('#live-preview' )[0],
+						previewdoc = live_preview.contentWindow.document || view.contentDocument;
+						//previewwin = previewdoc.defaultView,
+						//previewbody = previewdoc.body;
+
+						previewdoc.open();
+						previewdoc.write( data );
+						previewdoc.close();
+						
+						setTimeout( function() { preview(); }, 200 );
+					
+					},
+					complete: function(){
+						$('.loading_bar').addClass('hide');
+					}
+				});
+			
+			}
+			
+			function preview(){
+			
+				var logoslink = $('input[name="logoslink"]').val();
+				var logolink = $('input[name="logolink"]').val();
+				var tltxt = $('input[name="tltxt"]').val();
+				var headtxt = $('input[name="headtxt"]').val();
+				var btntxt = $('input[name="btntxt"]').val();
+				var btnlink = $('input[name="btnlink"]').val();
+				var p1txt = $('textarea[name="p1txt"]').val();
+				var p2txt = $('textarea[name="p2txt"]').val();
+				var blogoslink = $('input[name="blogoslink"]').val();
+				var blogolink = $('input[name="blogolink"]').val();
+				
+				var preview = document.getElementById('live-preview' )||$('#live-preview' )[0],
+				previewdoc = preview.contentWindow.document || view.contentDocument;
+				//previewwin = previewdoc.defaultView,
+				//previewbody = previewdoc.body;
+				//console.log( previewdoc );
+				//var markup = previewdoc.documentElement.innerHTML;
+				
+				var link = 'http://envoymails.com/email-intercom-basic.php?logoslink='+encodeURIComponent(logoslink)+'&logolink='+encodeURIComponent(logolink)+'&tltxt='+encodeURIComponent(tltxt)+'&headtxt='+encodeURIComponent(headtxt)+'&btntxt='+encodeURIComponent(btntxt)+'&btnlink='+encodeURIComponent(btnlink)+'&p1txt='+encodeURIComponent(p1txt)+'&p2txt='+encodeURIComponent(p2txt)+'&blogoslink='+encodeURIComponent(blogoslink)+'&blogolink='+encodeURIComponent(blogolink);
+				
+				if( previewdoc.getElementById('logoslink') ) previewdoc.getElementById('logoslink').src = logoslink;
+				if( previewdoc.getElementById('logolink') ) previewdoc.getElementById('logolink').href = logolink;
+				if( previewdoc.getElementById('tltxt') ) previewdoc.getElementById('tltxt').innerHTML = tltxt;
+				if( previewdoc.getElementById('headtxt') ) previewdoc.getElementById('headtxt').innerHTML = headtxt;
+				if( previewdoc.getElementById('btntxt') ) previewdoc.getElementById('btntxt').innerHTML = btntxt;
+				if( previewdoc.getElementById('btnlink') ) previewdoc.getElementById('btnlink').href = btnlink;
+				if( previewdoc.getElementById('ptxt') ) previewdoc.getElementById('ptxt').innerHTML = p1txt + '<br/><br/>' + p2txt;
+				if( previewdoc.getElementById('blogoslink') ) previewdoc.getElementById('blogoslink').src = blogoslink;
+				if( previewdoc.getElementById('blogolink') ) previewdoc.getElementById('blogolink').href = blogolink;
+				if( previewdoc.getElementById('hero_link') ) previewdoc.getElementById('hero_link').href = link;
+				
+			}
+			
+			
+			function download_html(){
+				
+				var filename = "templatehtml.html";
+				
+				var preview = document.getElementById('live-preview' ),
+				previewdoc = preview.contentWindow.document || preview.contentDocument;			
+				
+				var html = "";
+				let xml = new XMLSerializer();
+				for ( var n of previewdoc.childNodes ) {
+					if ( n.nodeType == Node.ELEMENT_NODE ) {
+						html += n.outerHTML + "\n";
+					} else {
+						html += xml.serializeToString(n) + "\n";
+					}
+				}
+				
+				var element = document.createElement('a');
+				element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(html));
+				element.setAttribute('download', filename);
+				
+				element.style.display = 'none';
+				document.body.appendChild(element);
+				
+				element.click();
+				
+				document.body.removeChild(element);
+				
+			}
+			
+			
+			
+			
+			$('#live-preview').ready( function() {
+				setTimeout( function() { preview(); }, 200 );
+				$('.loading_bar').addClass('hide');
+			});
+			
+			$('.form_input').on('keyup change paste', function(e){
+				
+				preview();
+				
+			});
+			
+			
+			$('.action_button').on('click', function(e){
+				
+				e.preventDefault();
+				download_html();
+				
+			});
+			
+			
+        });
+		
+		
+    </script>
+	<link rel="stylesheet" href="./style.css">
+	
+</head>
+<body>
+	
+	<div id="page-wrap">
+	
+		<div class="left-panel">
+		
+			<h1>Envoy Email Builder</h1>
+
+			<form action="http://envoymails.com/" class="form" method="POST" id="form">
+			
+				<div class="col2">
+					
+					<label for="logoslink">Logo Source Link</label>
+					<input class="form_input" type="text" name="logoslink" id="logoslink" placeholder="https://...." value="https://envoy.com/images/logo-new.svg"/> 
+					
+				</div>
+				<div class="col2">
+					
+					<label for="logolink">Logo URL</label>
+					<input class="form_input" type="text" name="logolink" id="logolink" placeholder="https://...." value="https://envoy.com/"/> 
+					
+				</div>
+				
+				
+				<div class="col2">
+				
+					<label for="tltxt">Top Left Text</label>
+					<input class="form_input" type="text" name="tltxt" id="tltxt" placeholder="Enter Letf Top Text" value="Stay healthy and productive"/>
+					
+				</div>
+				<div class="col2">
+					
+					<label for="headtxt">Header Text</label>
+					<input class="form_input" type="text" name="headtxt" id="headtxt" placeholder="Enter Header Text" value="Helping the world get back to work"/>
+					
+				</div>
+				
+				<div class="col2">
+				
+					<label for="btntxt">Button Text</label>
+					<input class="form_input" type="text" name="btntxt" id="btntxt" placeholder="Enter Button Text" value="Read more.."/>
+				
+				</div>
+				<div class="col2">
+					
+					<label for="btnlink">Button URL</label>
+					<input class="form_input" type="text" name="btnlink" id="btnlink" placeholder="https://...." value="https://envoy.com/pricing/"/>
+				
+				</div>
+				
+				<div class="col2">
+				
+					<label for="p1txt">Pragraph 1 Text</label>
+					<textarea class="form_input" cols="30" rows="10" name="p1txt" id="p1txt" placeholder="Enter Paragraph Text 1">Join the thousands of companies that use Envoy to create safe workplaces where employees can stay healthy and productive.</textarea>
+				
+				</div>
+				<div class="col2">
+					
+					<label for="p2txt">Pragraph 2 Text</label>
+					<textarea class="form_input" cols="30" rows="10" name="p2txt" id="p2txt" placeholder="Enter Paragraph Text 2">With Envoy Desks, you can empower your employees to reserve a desk in the office so they can keep a safe distance at work. This way you can keep your space flexible and germ-free.</textarea>
+				
+				</div>
+				
+				<div class="col2">
+				
+					<label for="blogoslink">Bottom Logo Source Link</label>
+					<input class="form_input" type="text" name="blogoslink" id="blogoslink" placeholder="https://...." value="https://envoy.com/images/products/protect/integrations/kisi.svg"/>
+					
+				</div>
+				<div class="col2">
+					
+					<label for="blogolink">Bottom Logo URL</label>
+					<input class="form_input" type="text" name="blogolink" id="blogolink" placeholder="https://...." value="https://envoy.com/"/>
+					
+				</div>
+				
+				<div class="col1">
+					
+					<button type="button" class="action_button">Export to HTML File</button>
+					
+					<!--<button type="submit" name="submit" id="submit" value="preview">Export to HTML File</button>-->
+				
+				</div>
+			</form>
+		</div>
+		
+		<div class="right-panel">
+			<div class="loading_bar"></div>
+			<iframe id="live-preview" src="template1.html">
+			
+			</iframe>
+		
+		</div>
+		
+	</div>
+	
+
+</body>
+</html>
