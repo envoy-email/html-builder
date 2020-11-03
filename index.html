@@ -136,8 +136,11 @@
 			preview_load = 1;
 		});
 		
-		var intval = setInterval(load_preview, 10);
 		
+		
+		// Time Control
+		var intval = setInterval(load_preview, 10);
+		var nnnn=0;
 		function load_preview() {
 		
 			if ( doc_load == 1 && preview_load == 1 ) {
@@ -145,6 +148,11 @@
 				preview();
 				clearInterval( intval );
 			  
+			} else {
+				
+				nnnn++;
+				console.log( nnnn );
+				
 			}
 			
 		}
