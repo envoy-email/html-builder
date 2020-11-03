@@ -15,10 +15,8 @@
 		
 		var doc_load = 0, preview_load = 0;
 		
-		$(document).ready( function() {
-			
-			
-			
+		
+		
 			function load_preview(){
 				$.ajax({
 					url: "template1.html",
@@ -57,7 +55,7 @@
 				var blogoslink = $('input[name="blogoslink"]').val();
 				var blogolink = $('input[name="blogolink"]').val();
 				
-				var preview = document.getElementById('live-preview' )||$('#live-preview' )[0],
+				var preview = document.getElementById('live-preview' ),
 				previewdoc = preview.contentWindow.document || view.contentDocument;
 				//previewwin = previewdoc.defaultView,
 				//previewbody = previewdoc.body;
@@ -109,6 +107,10 @@
 				document.body.removeChild(element);
 				
 			}
+			
+		
+		$(document).ready( function() {
+			
 			
 			$('.form_input').on('keyup change paste', function(e){
 				
