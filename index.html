@@ -15,8 +15,6 @@
 		
 		var doc_load = 0, preview_load = 0;
 		
-		
-		
 			function load_preview(){
 				$.ajax({
 					url: "template1.html",
@@ -76,7 +74,7 @@
 				if( previewdoc.getElementById('blogoslink') ) previewdoc.getElementById('blogoslink').src = blogoslink;
 				if( previewdoc.getElementById('blogolink') ) previewdoc.getElementById('blogolink').href = blogolink;
 				if( previewdoc.getElementById('herolink') ) previewdoc.getElementById('herolink').href = herolink;
-				if( previewdoc.getElementById('heroimgs') ) previewdoc.getElementById('heroimgs').href = heroimgs;
+				if( previewdoc.getElementById('heroimgs') ) previewdoc.getElementById('heroimgs').src = heroimgs;
 				
 			}
 			
